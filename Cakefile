@@ -13,7 +13,6 @@ sourceFiles  = [
   'view/ParameterView'
   'view/SignatureView'
   'view/ContentTypeView'
-  'view/ResponseContentTypeView'
   'view/ParameterContentTypeView'
 ]
 
@@ -26,6 +25,7 @@ task 'dist', 'Build a distribution', ->
   console.log "Build distribution in ./dist"
   fs.mkdirSync('dist') if not path.existsSync('dist')
   fs.mkdirSync('dist/lib') if not path.existsSync('dist/lib')
+  fs.mkdirSync('dist/api') if not path.existsSync('dist/api')
 
   appContents = new Array remaining = sourceFiles.length
   for file, index in sourceFiles then do (file, index) ->
@@ -74,18 +74,20 @@ task 'dist', 'Build a distribution', ->
             throw err if err
             fs.unlink 'dist/_swagger-ui.js'
             fs.unlink 'dist/_swagger-ui-templates.js'
-            console.log '   : Minifying all...'
-            exec 'java -jar "./bin/yuicompressor-2.4.7.jar" --type js -o ' + 'dist/swagger-ui.min.js ' + 'dist/swagger-ui.js', (err, stdout, stderr) ->
-              throw err if err
-              lessc()
+           #console.log '   : Minifying all...'
+           # exec 'java -jar "./bin/yuicompressor-2.4.7.jar" --type js -o ' + 'dist/swagger-ui.min.js ' + 'dist/swagger-ui.js', (err, stdout, stderr) ->
+           #throw err if err
+            lessc()
 
   lessc = ->
     # Someone who knows CoffeeScript should make this more Coffee-licious
     console.log '   : Compiling LESS...'
 
     less.render fs.readFileSync("src/main/less/screen.less", 'utf8'), (err, css) ->
+      throw err if err
       fs.writeFileSync("src/main/html/css/screen.css", css)
     less.render fs.readFileSync("src/main/less/reset.less", 'utf8'), (err, css) ->
+      throw err if err
       fs.writeFileSync("src/main/html/css/reset.css", css)
     pack()
 
@@ -97,6 +99,8 @@ task 'dist', 'Build a distribution', ->
     console.log '   : Copied swagger dependencies'
     exec 'cp -r src/main/html/* dist'
     console.log '   : Copied html dependencies'
+    exec 'cp -r src/main/api/* dist/api'
+    console.log '   : Copied API Docs'
     console.log '   !'
 
 task 'spec', "Run the test suite", ->

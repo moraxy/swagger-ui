@@ -682,6 +682,12 @@
                                         float: left;
                                         padding: 6px 8px;
                                     }
+                                    input.reponse_hider {
+                                        display: block;
+                                        clear: none;
+                                        float: left;
+                                        padding: 6px 8px;
+                                    }
                                 }
                                 form {
                                     input[type='text'].error {
@@ -702,7 +708,7 @@
                                 }
                             }
                         }
-                        li.operation.put {
+                        li.operation.update {
                             div.heading {
                                 background-color: #f9f2e9;
                                 border: 1px solid #f0e0ca;
@@ -738,7 +744,7 @@
                                 }
                             }
                         }
-                        li.operation.head {
+                        li.operation.freex {
                             div.heading {
                                 background-color: #fcffcd;
                                 border: 1px solid black;
@@ -776,7 +782,7 @@
                                 }
                             }
                         }
-                        li.operation.delete {
+                        li.operation.remove {
                             div.heading {
                                 background-color: #f5e8e8;
                                 border: 1px solid #e8c6c7;
@@ -813,7 +819,7 @@
                                 }
                             }
                         }
-                        li.operation.post {
+                        li.operation.create {
                             div.heading {
                                 background-color: #e7f6ec;
                                 border: 1px solid #c3e8d1;
@@ -848,7 +854,7 @@
                                 }
                             }
                         }
-                        li.operation.patch {
+                        li.operation.admin {
                             div.heading {
                                 background-color: #FCE9E3;
                                 border: 1px solid #F5D5C3;
@@ -886,7 +892,7 @@
                                 }
                             }
                         }
-                        li.operation.get {
+                        li.operation.find {
                             div.heading {
                                 background-color: #e7f0f7;
                                 border: 1px solid #c3d9ec;
@@ -921,7 +927,7 @@
                                 }
                             }
                         }
-                        li.operation.options {
+                        li.operation.freey {
                             div.heading {
                                 background-color: #e7f0f7;
                                 border: 1px solid #c3d9ec;
@@ -957,7 +963,7 @@
                             }
                         }
                         li.operation {
-                            &.get, &.post, &.head, &.put, &.patch, &.delete {
+                            &.find, &.create, &.freex, &.admin, &.update, &.remove, &.freey {
                                 div.content {
                                     border-top: none;
                                 }

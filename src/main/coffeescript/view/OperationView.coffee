@@ -81,9 +81,6 @@ class OperationView extends Backbone.View
           log "set content type "
           contentTypeModel.consumes = 'multipart/form-data'
 
-    responseContentTypeView = new ResponseContentTypeView({model: contentTypeModel})
-    $('.response-content-type', $(@el)).append responseContentTypeView.render().el
-
     # Render each parameter
     @addParameter param, contentTypeModel.consumes for param in @model.parameters
 
@@ -138,7 +135,6 @@ class OperationView extends Backbone.View
         if(val? && jQuery.trim(val).length > 0)
           map[o.name] = val
 
-      opts.responseContentType = $("div select[name=responseContentType]", $(@el)).val()
       opts.requestContentType = $("div select[name=parameterContentType]", $(@el)).val()
 
       $(".response_throbber", $(@el)).show()
@@ -188,10 +184,10 @@ class OperationView extends Backbone.View
       else
         @model.urlify(map, true)
 
-    $(".request_url", $(@el)).html "<pre>" + @invocationUrl + "</pre>"
+    $(".request_body", $(@el)).html "<pre>" + bodyParam + "</pre>"
 
     obj = 
-      type: @model.method
+      type: "POST" #***@model.method
       url: @invocationUrl
       headers: headerParams
       data: bodyParam
@@ -358,10 +354,10 @@ class OperationView extends Backbone.View
       pre = $('<pre class="json" />').append(code)
 
     response_body = pre
-    $(".request_url", $(@el)).html "<pre>" + url + "</pre>"
-    $(".response_code", $(@el)).html "<pre>" + response.status + "</pre>"
+    $(".request_body", $(@el)).html "<pre>" + response.body + "</pre>"
+    #$(".response_code", $(@el)).html "<pre>" + response.status + "</pre>"
     $(".response_body", $(@el)).html response_body
-    $(".response_headers", $(@el)).html "<pre>" + JSON.stringify(response.headers, null, "  ").replace(/\n/g, "<br>") + "</pre>"
+    #$(".response_headers", $(@el)).html "<pre>" + JSON.stringify(response.headers, null, "  ").replace(/\n/g, "<br>") + "</pre>"
     $(".response", $(@el)).slideDown()
     $(".response_hider", $(@el)).show()
     $(".response_throbber", $(@el)).hide()

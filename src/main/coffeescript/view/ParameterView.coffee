@@ -40,10 +40,6 @@ class ParameterView extends Backbone.View
       parameterContentTypeView = new ParameterContentTypeView({model: contentTypeModel})
       $('.parameter-content-type', $(@el)).append parameterContentTypeView.render().el
 
-    else
-      responseContentTypeView = new ResponseContentTypeView({model: contentTypeModel})
-      $('.response-content-type', $(@el)).append responseContentTypeView.render().el
-
     @
 
   # Return an appropriate template based on if the parameter is a list, readonly, required
