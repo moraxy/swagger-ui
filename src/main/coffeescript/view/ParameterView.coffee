@@ -9,7 +9,6 @@ class ParameterView extends Backbone.View
           
   render: ->
     type = @model.type || @model.dataType
-    @model.isBody = true if @model.paramType == 'body'
     @model.isFile = true if type.toLowerCase() == 'file'
 
     template = @template()
@@ -27,9 +26,6 @@ class ParameterView extends Backbone.View
       $('.model-signature', $(@el)).html(@model.signature)
 
     isParam = false
-
-    if @model.isBody
-      isParam = true
 
     contentTypeModel =
       isParam: isParam

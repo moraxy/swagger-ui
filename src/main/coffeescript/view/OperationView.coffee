@@ -76,7 +76,7 @@ class OperationView extends Backbone.View
 
     for param in @model.parameters
       type = param.type || param.dataType
-      if type.toLowerCase() == 'file'
+      if !param.$ref && type.toLowerCase() == 'file'
         if !contentTypeModel.consumes
           log "set content type "
           contentTypeModel.consumes = 'multipart/form-data'
@@ -128,10 +128,6 @@ class OperationView extends Backbone.View
           map[o.name] = o.value
         if o.type is "file"
           isFileUpload = true
-
-      for o in form.find("textarea")
-        if(o.value? && jQuery.trim(o.value).length > 0)
-          map["body"] = o.value
 
       for o in form.find("select") 
         val = this.getSelectedValue o
