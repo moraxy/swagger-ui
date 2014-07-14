@@ -81,6 +81,9 @@ class OperationView extends Backbone.View
           log "set content type "
           contentTypeModel.consumes = 'multipart/form-data'
 
+      if param.$ref
+        log param
+
     # Render each parameter
     @addParameter param, contentTypeModel.consumes for param in @model.parameters
 
