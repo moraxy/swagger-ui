@@ -9,7 +9,7 @@ class ParameterView extends Backbone.View
           
   render: ->
     type = @model.type || @model.dataType
-    @model.isFile = true if type.toLowerCase() == 'file'
+    @model.isFile = true if typeof type == 'string' && type.toLowerCase() == 'file'
 
     template = @template()
     $(@el).html(template(@model))

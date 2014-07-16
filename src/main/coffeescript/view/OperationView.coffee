@@ -74,7 +74,7 @@ class OperationView extends Backbone.View
     contentTypeModel.consumes = @model.consumes
     contentTypeModel.produces = @model.produces
 
-    for param in @model.parameters
+    for param, j in @model.parameters
       type = param.type || param.dataType
       if !param.$ref && type.toLowerCase() == 'file'
         if !contentTypeModel.consumes
@@ -83,6 +83,19 @@ class OperationView extends Backbone.View
 
       if param.$ref
         log param
+
+        @model.refParameters = []
+        for modelprop in param.type.properties
+            para =
+                description: modelprop.descr
+                name: param.name + "::" + modelprop.name
+                required: modelprop.required
+                type: modelprop.dataType
+                signature: modelprop.dataType
+
+            @model.refParameters.push(para)
+        @model.parameters.push.apply(@model.parameters, @model.refParameters)
+        @model.parameters.splice(j, 1)
 
     # Render each parameter
     @addParameter param, contentTypeModel.consumes for param in @model.parameters
@@ -205,7 +218,7 @@ class OperationView extends Backbone.View
       window.authorizations.apply obj
 
     if params is 0
-      obj.data.append("fake", "true");
+      obj.data.append("fake", "true")
 
     jQuery.ajax(obj)
     false
